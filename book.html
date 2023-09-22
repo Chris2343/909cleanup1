@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Now</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #173141;
+        }
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            color: #fff;
+        }
+        .form-group {
+            margin-bottom: 20px;
+            
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #fff;
+        }
+        input[type="text"], input[type="email"], input[type="tel"], select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button[type="submit"] {
+            background-color: #1378e5;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Book Now</h1>
+        <form id="bookNowForm">
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="phone">Phone Number:</label>
+                <input type="tel" id="phone" name="phone" required>
+            </div>
+            <div class="form-group">
+                <label for="timeOfDay">Preferred Time of Day:</label>
+                <select id="timeOfDay" name="timeOfDay">
+                    <option value="morning">Morning</option>
+                    <option value="afternoon">Afternoon</option>
+                    <option value="evening">Evening</option>
+                </select>
+            </div>
+            <button type="submit">Submit</button>
+        </form>
+        <div id="thankYouMessage" style="display: none;">
+            <p>Thank you! A team member will message you within 24 hours.</p>
+            <button id="homeButton">Home</button>
+        </div>
+    </div>
+
+    <script>
+        const form = document.getElementById("bookNowForm");
+        const thankYouMessage = document.getElementById("thankYouMessage");
+        const homeButton = document.getElementById("homeButton");
+
+        form.addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            // Get form values
+            const name = document.getElementById("name").value;
+            const email = document.getElementById("email").value;
+            const phone = document.getElementById("phone").value;
+            const timeOfDay = document.getElementById("timeOfDay").value;
+
+            // Create an object to store the submitted data
+            const formData = {
+                name,
+                email,
+                phone,
+                timeOfDay
+            };
+
+            // Store the data in localStorage for later retrieval on the "submitted.html" page
+            localStorage.setItem("formData", JSON.stringify(formData));
+
+            // Hide the form and display the "Thank you" message
+            form.style.display = "none";
+            thankYouMessage.style.display = "block";
+        });
+
+        // Add an event listener to the home button for redirection
+        homeButton.addEventListener("click", function() {
+            window.location.href = "index.html"; // Replace "home.html" with the actual URL of your home page
+        });
+    </script>
+</body>
+</html>
